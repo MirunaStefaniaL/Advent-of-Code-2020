@@ -1,16 +1,26 @@
 
 
-def p1():
+def p2():
     v = []
     f = open("f1.txt")
-    for x in f.read().split():
-        val = int(x)
-        v.append(val)
-    for i in range(len(v)):
-        for j in range(i + 1, len(v)):
-            for k in range(j + 1, len(v)):
-                if v[i] + v[j] + v[k] == 2020:
-                    return v[i] * v[j] * v[k]
-    f.close()
+    sir = f.read().replace(":"," ").replace("-"," ")
+    sir = sir.split()
+    n = len(sir)
+    ct = 0
+    for i in range(0, n, 4):
+        mini = int(sir[i])
+        maxi = int(sir[i + 1])
+        litera = sir[i + 2]
+        s = sir[i + 3]
 
-print(p1())
+        ap = 0
+
+        for caracter in s:
+            if caracter == litera:
+                ap += 1
+        if ap >= mini and ap <= maxi:
+            ct += 1
+
+    return ct
+
+print(p2())
