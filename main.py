@@ -103,3 +103,51 @@ def p3():
     print(ct)
 
 p3()
+
+def p4():
+    f = open("f1.txt")
+    a = f.read().split('\n')
+
+    eyecolour = ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
+
+    n = len(a)
+    i = 0
+    total = 0
+    while i < n:
+        pas = a[i]
+        while (i < n) and (len(a[i]) != 0 ):
+            pas = pas + a[i]
+            i += 1
+        i += 1 #sarim peste cea goala
+
+        pas.replace(":"," ")
+        v1 = pas.find("byr")
+        v2 = pas.find("iyr")
+        v3 = pas.find("eyr")
+        v4 = pas.find("hgt")
+        v5 = pas.find("hcl")
+        v6 = pas.find("ecl")
+        v7 = pas.find("pid")
+
+        if not( (v1 == -1) or (v2 == -1) or (v3 == -1) or (v4 == -1) or (v5 == -1) or (v6 == -1) or (v7 == -1)):
+            check1 = check2 = False
+            birthyear = pas[v1 + 3 : v1 + 7]
+            if birthyear.isalpha():
+                if ((int(birthyear) >= 1920) and (int(birthyear) <= 2002)) :
+                    check1 = True
+
+            issueyear = pas[v2 + 3 : v2 + 7]
+            if issueyear.isalpha():
+                if ((int(issueyear) >= 2010) and (int(issueyear) <= 2020)) :
+                    check2 = True
+
+            expirationyear = pas[v3 + 3 : v3 + 7]
+            if expirationyear.isalpha():
+                if ((int(expirationyear) >= 2020) and (int(expirationyear) <= 2030)) :
+                    check3 = True
+
+            ######
+
+    print(total)
+
+p4()
