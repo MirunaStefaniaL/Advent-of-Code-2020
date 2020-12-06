@@ -153,7 +153,92 @@ def p4():
 p4()
 
 
+###############
+def create_dict(s):
+    d ={}
+    s = s.split()
+    for x in s:
+        poz = x.find(":")
+        key = x[:poz]
+        value = x[(poz + 1):]
+        d[key] = value
+    return d
 
+
+def verify1(d):
+    if len(d.keys()) == 8:
+        return 1
+    if len(d.keys()) == 7 and "cid" not in d.keys():
+        return 1
+    return 0
+
+
+def verify2(d):
+    if verify1(d) == 0:
+        return 0
+    for k in d.keys():
+        if k == "byr":
+            if int(d[k]) < 1920 or int(d[k]) > 2002:
+                return 0
+        if k == "iyr":
+            if int(d[k]) < 2010 or int(d[k]) > 2020:
+                return 0
+        if k == "eyr":
+            if int(d[k]) < 2020 or int (d[k]) > 2030:
+                return 0
+        if k == "hgt":
+            pozcm = d[k].find("cm")
+            pozin = d[k].find("in")
+            poz = max(pozin, pozcm)
+            if poz == -1:
+                return 0
+            if poz == pozcm:
+                if(int(d[k][:poz]) < 150) or (int(d[k][:poz]) > 193):
+                    return 0
+            if poz == pozin:
+                if (int(d[k][:poz]) < 59) or (int (d[k][:poz]) > 76):
+                    return 0
+        if k == "hcl":
+            if d[k][0] != "#":
+                return 0
+            if len(d[k]) != 7:
+                return 0
+            for i in range(1, 6):
+                x = d[k][i]
+                if x.isdigit() == False and (x <'a' or x >'f'):
+                    return 0
+        if k =="ecl":
+            if d[k] not in ("amb", "blu", "brn", "gry", "grn", "hzl", "oth"):
+                return 0
+        if k =="pid":
+            if len(d[k]) != 9:
+                return 0
+            for i in range(len(d[k])):
+                x = d[k][i]
+                if x.isdigit() == False:
+                    return 0
+
+        return 1
+
+f = open("f1.txt")
+L = f.read().split("\n\n")
+
+ct1 = 0 #number of valid passports in task1
+ct2 = 0 #number of valid passports in task2
+
+for i in L:
+    d = create_dict(i) #we create a new dictionary for each pasport
+    #print(d)
+    if verify1(d):
+        ct1 += 1 #for task1
+    if verify2(d):
+        ct2 += 1 #for task2
+
+#print(ct1)
+print(ct2)
+exit()
+
+######
 
 
 def p5():
