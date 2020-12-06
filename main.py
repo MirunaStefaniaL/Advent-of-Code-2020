@@ -151,3 +151,45 @@ def p4():
     print(total)
 
 p4()
+
+
+
+
+
+def p5():
+    f = open("f1.txt")
+    str = f.readlines()
+    maxi = 0
+    mini = 1030
+    f = [0] * 1030
+    for s in str:
+        l = 0
+        r = 127
+        for i in range(7):
+            m = (r + l)//2
+            if s[i] == 'F':
+                r = m
+            else:
+                l = m + 1
+        row = r
+        l = 0
+        r = 7
+        for i in range(7, len(s)):
+            m = (r + l + 1) // 2
+            if s[i] == 'L':
+                r = m - 1
+            else:
+                l = m
+        column = l
+        id = row * 8 +column
+        if id > maxi:
+            maxi = id
+        if id < mini:
+            mini = id
+
+        f[id] = 1
+    for i in range(mini, maxi):
+        if f[i] == 0:
+             print(i)
+
+p5()
